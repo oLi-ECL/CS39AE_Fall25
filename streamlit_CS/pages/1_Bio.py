@@ -4,7 +4,7 @@ st.title("👋 My Bio")
 
 # ---------- TODO: Replace with your own info ----------
 NAME = "Li Mei"
-PROGRAM = "CS \ "
+PROGRAM = "CS"
 INTRO = (
     "HI Everyone  "
     "Night owls sleep less than 4 hours"
