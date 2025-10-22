@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 categories = []
 sales = []
 
-with open('pie_demo.csv', 'r') as file:
+with open('streamlit_CS/data/pie_demo.csv', 'r') as file:
     reader = csv.DictReader(file)
     for row in reader:
         categories.append(row['Category'])
