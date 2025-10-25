@@ -1,21 +1,35 @@
 # pie_chart_plot.py
 
+import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-# Find the absolute path to this script (3_Pie.py)
+# Set page title
+st.title("🍰 Pie Chart Demo")
+
+# Build the correct absolute path
 current_dir = Path(__file__).resolve().parent
+csv_path = current_dir.parent / "data" / "pie_demo.csv"
 
-# Build path to data/pie_demo.csv relative to the project structure
-csv_path = current_dir.parent / 'data' / 'pie_demo.csv'
+# Debug info (optional)
+# st.write("CSV Path:", csv_path)
 
-# Load the CSV
-data = pd.read_csv(csv_path)
+# Load the data
+try:
+    df = pd.read_csv(csv_path)
+    st.write("### Data Preview", df)
 
-# Plot the pie chart
-plt.figure(figsize=(8, 8))
-plt.pie(data['Sales'], labels=data['Category'], autopct='%1.1f%%', startangle=90)
-plt.title('Pie Chart from CSV Data')
-plt.axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle
-plt.show()
+    # Check that CSV has the expected columns
+    if "Category" in df.columns and "Sales" in df.columns:
+        # Create pie chart
+        fig, ax = plt.subplots(figsize=(8, 8))
+        ax.pie(df["Sales"], labels=df["Category"], autopct="%1.1f%%", startangle=90)
+        ax.axis("equal")  # Equal aspect ratio = circle
+
+        st.pyplot(fig)
+    else:
+        st.warning("⚠️ CSV must contain 'Category' and 'Sales' columns.")
+
+except FileNotFoundError:
+    st.error(f"❌ Could not find file at {csv_path}")
