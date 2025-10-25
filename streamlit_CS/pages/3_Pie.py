@@ -1,35 +1,36 @@
-# pie_chart_plot.py
-
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 from pathlib import Path
 
-# Set page title
-st.title("🍰 Pie Chart Demo")
+# Page setup
+st.title("🥧 Interactive Pie Chart Demo")
 
-# Build the correct absolute path
+# Locate CSV file safely
 current_dir = Path(__file__).resolve().parent
 csv_path = current_dir.parent / "data" / "pie_demo.csv"
 
-# Debug info (optional)
-# st.write("CSV Path:", csv_path)
-
-# Load the data
+# Load CSV data
 try:
     df = pd.read_csv(csv_path)
     st.write("### Data Preview", df)
 
-    # Check that CSV has the expected columns
-    if "Category" in df.columns and "Sales" in df.columns:
-        # Create pie chart
-        fig, ax = plt.subplots(figsize=(8, 8))
-        ax.pie(df["Sales"], labels=df["Category"], autopct="%1.1f%%", startangle=90)
-        ax.axis("equal")  # Equal aspect ratio = circle
+    # Check for expected columns
+    if "Category" in df.columns and "Value" in df.columns:
+        # Create interactive pie chart
+        fig = px.pie(
+            df,
+            names="Category",
+            values="Value",
+            title="Interactive Pie Chart",
+            color_discrete_sequence=px.colors.qualitative.Pastel,
+            hole=0.3,  # Change to 0 for solid pie chart
+        )
 
-        st.pyplot(fig)
+        # Display the chart
+        st.plotly_chart(fig, use_container_width=True)
     else:
-        st.warning("⚠️ CSV must contain 'Category' and 'Sales' columns.")
+        st.warning("⚠️ CSV must contain 'Category' and 'Value' columns.")
 
 except FileNotFoundError:
     st.error(f"❌ Could not find file at {csv_path}")
