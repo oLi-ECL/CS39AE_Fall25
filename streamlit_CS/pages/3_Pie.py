@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read CSV file
-data = pd.read_csv('data/pie_demo.csv')
+data = pd.read_csv('../data/pie_demo.csv')
 
 # Plot the pie chart
 plt.figure(figsize=(8, 8))
