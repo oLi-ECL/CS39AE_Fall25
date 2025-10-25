@@ -8,7 +8,8 @@ PROGRAM = "CS"
 INTRO = (
     "HI Everyone  "
     "Night owls sleep less than 4 hours"
-    "or more than 9 hours, nothing inbetween, Test"
+    "or more than 9 hours, nothing inbetween."
+    "The pie_demo 2nd columns had to be changed to Value from sales, and it's not a interactive pie chart"
 )
 FUN_FACTS = [
     "I love Nights",
